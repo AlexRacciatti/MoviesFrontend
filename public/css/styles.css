@@ -1,0 +1,18 @@
+* {
+    font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.peliculas-container{
+    background-color: #ccffcc;
+}
+
+.actores-container{
+    background-color: #ccccff;
+}
+
+.generos-container{
+    background-color: #ffcc99;
+}
