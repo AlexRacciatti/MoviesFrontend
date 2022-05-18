@@ -5,14 +5,14 @@
     margin: 0;
 }
 
-.peliculas-container{
+.movies-container{
     background-color: #ccffcc;
 }
 
-.actores-container{
+.actors-container{
     background-color: #ccccff;
 }
 
-.generos-container{
+.generes-container{
     background-color: #ffcc99;
 }
