@@ -1,30 +1,32 @@
+//Utilities
+import { paginator } from './Util.js';
+
 window.addEventListener('load', () =>{
 
-        //Movies buttons
-        const allMovies = document.getElementById('allMovies');
-        const oneMovieForm = document.getElementById('oneMovieForm');
-        const movieRating = document.getElementById('movieRatingForm');
-    
-        //Actors buttons
-        const allActors = document.getElementById('allActors');
-        const oneActor = document.getElementById('oneActor');
-        const allMoviesOneActor = document.getElementById('allMoviesOneActor');
-    
-        //Genres buttons
-        const allGenres = document.getElementById('allGenres');
-        const allMoviesOneGenre = document.getElementById('allMoviesOneGenre');
-    
-        //Info container
-        const infoContainer = document.getElementById('info-container');
-        const reusableContainer = document.getElementById('reusable-container')
+    //Movies buttons
+    const allMovies = document.getElementById('allMovies');
+    const oneMovieForm = document.getElementById('oneMovieForm');
+    const movieRating = document.getElementById('movieRatingForm');
 
-        //Table selectors head and body
-        const tableStructure = document.getElementById('table')
-        const tableBody = document.getElementById('table-body');
-
-        //Loader
-        const loader = document.getElementById('loader');
+    //Actors buttons
+    const allActors = document.getElementById('allActors');
+    const oneActor = document.getElementById('oneActor');
+    const allMoviesOneActor = document.getElementById('allMoviesOneActor');
     
+    //Genres buttons
+    const allGenres = document.getElementById('allGenres');
+    const allMoviesOneGenre = document.getElementById('allMoviesOneGenre');
+    
+    //Info container
+    const infoContainer = document.getElementById('info-container');
+    const reusableContainer = document.getElementById('reusable-container')
+
+    //Table selectors head and body
+    const tableStructure = document.getElementById('table')
+    const tableBody = document.getElementById('table-body');
+
+    //Loader
+    const loader = document.getElementById('loader');
     
     function getMoviesFromApi() {
 
@@ -181,8 +183,37 @@ window.addEventListener('load', () =>{
         getMovieFromApiByMinRating(movieRating);
     })
 
-    
 
+    //------------------------------ACTORS METHODS------------------------------
 
+    function getActorsFromApi(){
+        fetch('https://moviesbackapi.herokuapp.com/api/actors')
+          .then(r=>r.json())
+          .then((data)=>{
+                let actors = data.data;
+                
+                let paginatedActors = paginator(actors);
+
+                console.log(paginatedActors);
+
+                loader.classList.add('visually-hidden');
+          })
+    }
+
+    function getActorByIdFromApi(actorId){
+
+    }
+
+    function getMoviesOfActorById(actorId){
+
+    }
+
+    allActors.addEventListener('click', ()=>{
+        loader.classList.remove('visually-hidden');
+
+        getActorsFromApi();
+
+        allActors.classList.add('disabled');
+    })
     
 });
