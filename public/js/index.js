@@ -22,11 +22,45 @@ window.addEventListener('load', () =>{
     const reusableContainer = document.getElementById('reusable-container')
 
     //Table selectors head and body
-    const tableStructure = document.getElementById('table')
+    const tableStructure = document.getElementById('table');
+    const tableHead = document.getElementById("table-head");
     const tableBody = document.getElementById('table-body');
 
     //Loader
     const loader = document.getElementById('loader');
+
+    function displayRequestedTable(tableName) {
+        let moviesItems = ["ID", "Título", "Género", "Rating"];
+        let actorsItems = ["ID", "Nombre", "Rating", "Película favorita"];
+        let genresItems = ["ID", "Nombre", "Ranking"];
+    
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = "";
+    
+        let tableRow = document.createElement("tr");
+    
+        if (tableName == "movies") {
+          moviesItems.forEach((item) => {
+            let tableHeadItem = document.createElement("th");
+            tableHeadItem.innerHTML = item;
+            tableRow.appendChild(tableHeadItem);
+          });
+        } else if (tableName == "actors") {
+          actorsItems.forEach((item) => {
+            let tableHeadItem = document.createElement("th");
+            tableHeadItem.innerHTML = item;
+            tableRow.appendChild(tableHeadItem);
+          });
+        } else {
+          genresItems.forEach((item) => {
+            let tableHeadItem = document.createElement("th");
+            tableHeadItem.innerHTML = item;
+            tableRow.appendChild(tableHeadItem);
+          });
+        }
+    
+        tableHead.appendChild(tableRow);
+      }
     
     function getMoviesFromApi() {
 
@@ -38,6 +72,8 @@ window.addEventListener('load', () =>{
 
             let movies = data.data;
             console.log(movies);
+
+            displayRequestedTable("movies");
 
             infoContainer.classList.remove('visually-hidden');
             tableStructure.classList.remove('visually-hidden');
@@ -65,6 +101,8 @@ window.addEventListener('load', () =>{
         .then(r => r.json())
         .then(data => {
             let movie = data.data;
+
+            displayRequestedTable("movies");
 
             //Adding styles
             infoContainer.classList.add('movies-container');
@@ -102,6 +140,8 @@ window.addEventListener('load', () =>{
               console.log(data.data);
 
               let moviesByRating = data.data;
+
+              displayRequestedTable("movies");
 
               infoContainer.classList.remove('visually-hidden');
               tableStructure.classList.remove('visually-hidden');
@@ -159,7 +199,7 @@ window.addEventListener('load', () =>{
 
     });
 
-    movieRating.addEventListener('submit', event =>{
+    movieRating.addEventListener('submit', (event) =>{
         event.preventDefault();
         loader.classList.remove('visually-hidden');
 
@@ -191,6 +231,7 @@ window.addEventListener('load', () =>{
           .then(r=>r.json())
           .then((data)=>{
                 let actors = data.data;
+                displayRequestedTable("actors");
                 
                 let paginatedActors = paginator(actors);
 
