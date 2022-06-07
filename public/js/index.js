@@ -1,5 +1,6 @@
 //Utilities
 import { paginator } from './utils/paginator.js';
+import { tableBodyUpdater } from './utils/tableBodyUpdater.js'
 
 window.addEventListener('load', () =>{
 
@@ -81,16 +82,7 @@ window.addEventListener('load', () =>{
             infoContainer.classList.remove('genres-container');
             infoContainer.classList.remove('actors-container');
 
-            movies.forEach(movie => {
-                tableBody.innerHTML += `
-                <tr>
-                    <th scope='row'>${movie.id}</th>
-                    <td>${movie.title}</td>
-                    <td>${movie.genre.name}</td>
-                    <td>${movie.rating}</td>
-                </tr>
-                `
-            });
+            tableBodyUpdater(movies, "movies");
 
             loader.classList.add('visually-hidden');
         })
@@ -148,20 +140,11 @@ window.addEventListener('load', () =>{
               infoContainer.classList.add('movies-container');
               infoContainer.classList.remove('genres-container');
               infoContainer.classList.remove('actors-container');
-  
-              moviesByRating.forEach(movie => {
-                  tableBody.innerHTML += `
-                  <tr>
-                      <th scope='row'>${movie.id}</th>
-                      <td>${movie.title}</td>
-                      <td>${movie.genre.name}</td>
-                      <td>${movie.rating}</td>
-                  </tr>
-                  `
-                });
-
+            
+              tableBodyUpdater(moviesByRating, "movies");
+            
               loader.classList.add('visually-hidden');
-          })
+          });
     };
 
     
@@ -169,6 +152,11 @@ window.addEventListener('load', () =>{
     allMovies.addEventListener('click', () => {
         loader.classList.remove('visually-hidden');
         getMoviesFromApi()
+
+        //Toggle buttons styles to enable and disable the correct ones
+        allMovies.classList.add("disabled");
+        allActors.classList.remove("disabled");
+        allGenres.classList.remove("disabled");
 
         allMovies.classList.add('disabled');
     })
@@ -239,6 +227,7 @@ window.addEventListener('load', () =>{
                 console.log(paginatedActors[0]);                
                 console.log(paginatedActors[4]);                
 
+                tableBodyUpdater(paginatedActors[0], "actors");
 
                 loader.classList.add('visually-hidden');
           })
@@ -257,7 +246,15 @@ window.addEventListener('load', () =>{
 
         getActorsFromApi();
 
+        //Toggle category styles for each container
+        infoContainer.classList.add("actors-container");
+        infoContainer.classList.remove("movies-container");
+        infoContainer.classList.remove("genres-container");
+
+        //Toggle buttons styles
         allActors.classList.add('disabled');
+        allMovies.classList.remove("disabled");
+        allGenres.classList.remove("disabled");
     })
     
 });
