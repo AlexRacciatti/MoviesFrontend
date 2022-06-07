@@ -1,5 +1,5 @@
 //Utilities
-import { paginator } from './Util.js';
+import { paginator } from './utils/paginator.js';
 
 window.addEventListener('load', () =>{
 
@@ -76,7 +76,7 @@ window.addEventListener('load', () =>{
             infoContainer.classList.remove('genres-container');
 
             //Show movie on DOM
-            infoContainer.innerHTML += `
+            infoContainer.innerHTML = `
                 <section id="reusable-container" class="container-sm text-center my-2 py-3 border border-2 border-primary rounded">
                     <img src="../public/img/img-undefined.png" height="150px" class="rounded mx-auto d-block">
                     <h4 class="py-2">${movie.title}</h4>
@@ -195,6 +195,9 @@ window.addEventListener('load', () =>{
                 let paginatedActors = paginator(actors);
 
                 console.log(paginatedActors);
+                console.log(paginatedActors[0]);                
+                console.log(paginatedActors[4]);                
+
 
                 loader.classList.add('visually-hidden');
           })

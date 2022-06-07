@@ -1,4 +1,4 @@
-export function paginator(items){
+function paginator(items){
 
     let totalPages = Math.ceil(items.length / 15);
     
@@ -11,3 +11,5 @@ export function paginator(items){
 
     return response;
 }
+
+export {paginator};
